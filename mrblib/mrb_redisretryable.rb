@@ -1,13 +1,13 @@
 class Redis
   class Retryable
-    attr_accessor :retry_times, :retry_duration
+    attr_accessor :tries, :sleep
 
     def initialize(host, port, timeout = 1)
       @host = host
       @port = port
       @timeout = timeout
-      @retry_times = 3
-      @retry_sleep = 1 # 1s
+      @tries = 3
+      @sleep = 1 # 1s
       @client = Redis.new(@host, @port, @timeout)
     end
 
@@ -18,12 +18,12 @@ class Redis
         @client.send(method, *args)
       rescue => e
         if e.class == Redis::ConnectionError
-          if try < @retry_times
+          if try < @tries
             try += 1
-            Sleep::sleep(@retry_sleep)
+            Sleep::sleep(@sleep)
             retry
           else
-            raise Redis::Retryable::RetryError, "Redis#{method} try #{@retry_times} times faild."
+            raise Redis::Retryable::RetryError, "Redis#{method} try #{@tries} times faild."
           end
         end
         raise e
