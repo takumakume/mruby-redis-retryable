@@ -20,8 +20,8 @@ class Redis
             Sleep::usleep(@retry_duration)
             @client = Redis.new(@host, @port, @timeout)
             retry
-          # else
-          #   raise Redis::Retryable::RetryError
+          else
+            raise Redis::Retryable::RetryError, "Redis#{methos} try #{@retry_times} times faild."
           end
         end
         raise e
