@@ -77,3 +77,25 @@ assert("Redis::Retryable.new can reconnect") do
   Process.waitpid pid
   Sleep::sleep(1)
 end
+
+assert("If Redis is stopped, Redis::Retryable raise Redis::Retryable::RetryError") do
+  pid = Process.fork() {
+    Exec.execv("/bin/bash", "-l", "-c", "redis-server --port #{PORT} &")
+  }
+  Process.waitpid pid
+  Sleep::sleep(1)
+
+  r = Redis::Retryable.new HOST, PORT
+
+  pid = Process.fork() {
+    Exec.execv("/bin/bash", "-l", "-c", "redis-cli -p #{PORT} shutdown")
+  }
+  Process.waitpid pid
+  Sleep::sleep(1)
+
+  begin
+    r.ping
+  rescue => e
+    assert_equal Redis::Retryable::RetryError, e.class
+  end
+end
