@@ -2,9 +2,9 @@
 
 Redis::Retryable class
 
-## install by mrbgems
+## Usage
 
-- add conf.gem line to `build_config.rb`
+Use `Redis::Retryable.new` instead of `Redis.new`
 
 ## License
 under the MIT License:
