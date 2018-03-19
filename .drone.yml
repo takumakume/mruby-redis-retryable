@@ -2,6 +2,8 @@ build:
   image: ruby:2.4.1
   commands:
     - apt-get update -qqy && apt-get -qqy install bison git libssl-dev redis-server
+    - redis-server --port 6379 &
+    - redis-server --port 6380 --requirepass 'secret' &
     - gem install rake
     - rake test
 cache:
