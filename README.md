@@ -1,6 +1,6 @@
-# mruby-redis_retryable [![Build Status](https://ci-next.pepabo.com/api/badges/lolipop/mruby-redis_retryable/status.svg)](https://ci-next.pepabo.com/lolipop/mruby-redis_retryable)
+# mruby-redis-retryable [![Build Status](https://ci-next.pepabo.com/api/badges/lolipop/mruby-redis-retryable/status.svg)](https://ci-next.pepabo.com/lolipop/mruby-redis-retryable)
 
-RedisRetryable class
+Redis::Retryable class
 
 ## install by mrbgems
 

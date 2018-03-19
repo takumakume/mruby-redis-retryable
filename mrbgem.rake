@@ -1,4 +1,4 @@
-MRuby::Gem::Specification.new('mruby-redis_retryable') do |spec|
+MRuby::Gem::Specification.new('mruby-redis-retryable') do |spec|
   spec.license = 'MIT'
   spec.authors = "Ken'ichiro Oyama"
   spec.add_dependency 'mruby-redis'
