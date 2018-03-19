@@ -11,6 +11,10 @@ class Redis
       @client = Redis.new(@host, @port, @timeout)
     end
 
+    def exec
+      method_missing(:exec)
+    end
+
     def method_missing(method, *args)
       try = 0
       begin
