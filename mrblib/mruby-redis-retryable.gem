@@ -1,0 +1,6 @@
+name: mruby-redis-retryable
+description: Redis::Retryable class
+author: k1low
+website: https://git.pepabo.com/lolipop/mruby-redis-retryable
+protocol: git
+repository: https://git.pepabo.com/lolipop/mruby-redis-retryable.git
