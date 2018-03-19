@@ -3,6 +3,7 @@ class RedisRetryable
     @host = host
     @port = port
     @timeout = timeout
+    @retry_duration = 3000000 # 3s
     @client = Redis.new(@host, @port, @timeout)
   end
 
@@ -11,8 +12,7 @@ class RedisRetryable
       @client.send(method, *args)
     rescue => e
       if e.class == Redis::ConnectionError
-        puts "!!!!!!!"
-        Sleep::sleep(3)
+        Sleep::usleep(@retry_duration)
         @client = Redis.new(@host, @port, @timeout)
         @client.send(method, *args)
       end
