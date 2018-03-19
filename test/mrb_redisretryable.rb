@@ -9,6 +9,7 @@ assert("RedisRetryable") do
   pid = Process.fork() {
     Exec.execv("/bin/bash", "-l", "-c", "redis-server --port #{PORT} &")
   }
+  Process.waitpid pid
 
   r = RedisRetryable.new HOST, PORT
   assert_equal "PONG", r.ping
