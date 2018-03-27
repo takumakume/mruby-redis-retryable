@@ -21,13 +21,13 @@ class Redis
         @client = Redis.new(@host, @port, @timeout) if try > 0
         @client.send(method, *args)
       rescue => e
-        if e.class == Redis::ConnectionError
+        if e.class == Redis::ConnectionError || e.class == Redis::ReplyError
           if try < @tries
             try += 1
             Sleep::sleep(@sleep)
             retry
           else
-            raise Redis::Retryable::RetryError, "Redis#{method} try #{@tries} times faild."
+            raise Redis::Retryable::RetryError, "Redis##{method} try #{@tries} times faild. \"#{e.message}\""
           end
         end
         raise e
