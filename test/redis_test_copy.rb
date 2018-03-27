@@ -17,7 +17,7 @@ end
 assert("Non-authrozied Redis#ping") do
   r = Redis::Retryable.new HOST, SECURED_PORT
 
-  assert_raise(Redis::Retryable::RetryError) {r.ping}
+  assert_raise(Redis::ReplyError) {r.ping}
   r.close
 end
 
@@ -58,7 +58,7 @@ assert("Redis#select") do
   ret3 = r.select 0
   db0_1_score = r.get("score")
 
-  assert_raise(Redis::Retryable::RetryError) {r.select(-1)}
+  assert_raise(Redis::ReplyError) {r.select(-1)}
   assert_raise(TypeError) {r.select nil}
 
   r.close
@@ -86,8 +86,8 @@ end
 
 assert("Non-authrozied Redis#set, Redis#get") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.get "hoge"}
-  assert_raise(Redis::Retryable::RetryError) {r.set "hoge", "fuga"}
+  assert_raise(Redis::ReplyError) {r.get "hoge"}
+  assert_raise(Redis::ReplyError) {r.set "hoge", "fuga"}
   r.close
 end
 
@@ -159,7 +159,7 @@ end
 
 assert("Non-authrozied Redis#setnx") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.setnx "hoge", "fuga"}
+  assert_raise(Redis::ReplyError) {r.setnx "hoge", "fuga"}
   r.close
 end
 
@@ -200,7 +200,7 @@ end
 
 assert("Non-authrozied Redis#exists?") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.exists? "hoge"}
+  assert_raise(Redis::ReplyError) {r.exists? "hoge"}
   r.close
 end
 
@@ -233,7 +233,7 @@ end
 
 assert("Non-authrozied Redis#expire") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.expire "hoge", 1}
+  assert_raise(Redis::ReplyError) {r.expire "hoge", 1}
   r.close
 end
 
@@ -258,7 +258,7 @@ end
 
 assert("Non-authrozied Redis#flushall") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.flushall}
+  assert_raise(Redis::ReplyError) {r.flushall}
   r.close
 end
 
@@ -283,7 +283,7 @@ end
 
 assert("Non-authrozied Redis#flushdb") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.flushdb}
+  assert_raise(Redis::ReplyError) {r.flushdb}
   r.close
 end
 
@@ -315,7 +315,7 @@ end
 
 assert("Non-authrozied Redis#del") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.del "hoge"}
+  assert_raise(Redis::ReplyError) {r.del "hoge"}
   r.close
 end
 
@@ -369,8 +369,8 @@ end
 
 assert("Non-authrozied Redis#hset, Redis#hget") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.hset "myhash", "field1", "a"}
-  assert_raise(Redis::Retryable::RetryError) {r.hget "myhash", "field1"}
+  assert_raise(Redis::ReplyError) {r.hset "myhash", "field1", "a"}
+  assert_raise(Redis::ReplyError) {r.hget "myhash", "field1"}
   r.close
 end
 
@@ -398,7 +398,7 @@ end
 
 assert("Non-authrozied Redis#hsetnx") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.hsetnx "myhash", "field1", "a"}
+  assert_raise(Redis::ReplyError) {r.hsetnx "myhash", "field1", "a"}
   r.close
 end
 
@@ -426,7 +426,7 @@ end
 
 assert("Non-authrozied Redis#hgetall") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.hgetall "myhash"}
+  assert_raise(Redis::ReplyError) {r.hgetall "myhash"}
   r.close
 end
 
@@ -466,7 +466,7 @@ end
 
 assert("Non-authrozied Redis#hdel") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.hdel "myhash", "field1"}
+  assert_raise(Redis::ReplyError) {r.hdel "myhash", "field1"}
   r.close
 end
 
@@ -496,7 +496,7 @@ end
 
 assert("Non-authrozied Redis#hexists?") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.hexists?("myhash", "field")}
+  assert_raise(Redis::ReplyError) {r.hexists?("myhash", "field")}
   r.close
 end
 
@@ -524,7 +524,7 @@ end
 
 assert("Non-authrozied Redis#hkeys") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.hkeys "myhash"}
+  assert_raise(Redis::ReplyError) {r.hkeys "myhash"}
   r.close
 end
 
@@ -580,7 +580,7 @@ end
 
 assert("Non-authrozied Redis#hvals") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.hvals "myhash"}
+  assert_raise(Redis::ReplyError) {r.hvals "myhash"}
   r.close
 end
 
@@ -610,7 +610,7 @@ end
 
 assert("Non-authrozied Redis#hincrby") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.hincrby "myhash", "score", 100}
+  assert_raise(Redis::ReplyError) {r.hincrby "myhash", "score", 100}
   r.close
 end
 
@@ -640,7 +640,7 @@ end
 
 assert("Non-authrozied Redis#incrby") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.incrby "score", 100}
+  assert_raise(Redis::ReplyError) {r.incrby "score", 100}
   r.close
 end
 
@@ -670,7 +670,7 @@ end
 
 assert("Non-authrozied Redis#decrby") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.decrby "score", 100}
+  assert_raise(Redis::ReplyError) {r.decrby "score", 100}
   r.close
 end
 
@@ -712,8 +712,8 @@ end
 
 assert("Non-authrozied Redis#lpush, Redis#lrange") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.lrange "logs", 0, -1}
-  assert_raise(Redis::Retryable::RetryError) {r.lpush "logs", "error1"}
+  assert_raise(Redis::ReplyError) {r.lrange "logs", 0, -1}
+  assert_raise(Redis::ReplyError) {r.lpush "logs", "error1"}
   r.close
 end
 
@@ -740,7 +740,7 @@ end
 
 assert("Non-authrozied Redis#rpop") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.rpop "list"}
+  assert_raise(Redis::ReplyError) {r.rpop "list"}
   r.close
 end
 
@@ -767,7 +767,7 @@ end
 
 assert("Non-authrozied Redis#lpop") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.lpop "list"}
+  assert_raise(Redis::ReplyError) {r.lpop "list"}
   r.close
 end
 
@@ -839,8 +839,8 @@ end
 
 assert("Non-authrozied Redis#sadd, Redis#sismember") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.sadd('set', 'bar')}
-  assert_raise(Redis::Retryable::RetryError) {r.sismember('set', 'bar')}
+  assert_raise(Redis::ReplyError) {r.sadd('set', 'bar')}
+  assert_raise(Redis::ReplyError) {r.sismember('set', 'bar')}
   r.close
 end
 
@@ -870,9 +870,9 @@ end
 
 assert("Non-authrozied Redis#scard Redis#smembers Redis#spop") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.scard('set')}
-  assert_raise(Redis::Retryable::RetryError) {r.smembers('set')}
-  assert_raise(Redis::Retryable::RetryError) {r.spop('set')}
+  assert_raise(Redis::ReplyError) {r.scard('set')}
+  assert_raise(Redis::ReplyError) {r.smembers('set')}
+  assert_raise(Redis::ReplyError) {r.spop('set')}
   r.close
 end
 
@@ -905,7 +905,7 @@ end
 
 assert("Non-authrozied Redis#srem") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.srem("set", "hoge")}
+  assert_raise(Redis::ReplyError) {r.srem("set", "hoge")}
   r.close
 end
 
@@ -946,7 +946,7 @@ end
 
 assert("Non-authrozied Redis#ttl") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.ttl "hoge"}
+  assert_raise(Redis::ReplyError) {r.ttl "hoge"}
   r.close
 end
 
@@ -970,7 +970,7 @@ end
 
 assert("Non-authrozied Redis#keys") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.keys 'fo*'}
+  assert_raise(Redis::ReplyError) {r.keys 'fo*'}
   r.close
 end
 
@@ -991,7 +991,7 @@ end
 
 assert("Non-authrozied Redis#llen") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.llen('mylist')}
+  assert_raise(Redis::ReplyError) {r.llen('mylist')}
   r.close
 end
 
@@ -1013,7 +1013,7 @@ end
 
 assert("Non-authrozied Redis#lindex") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.lindex('mylist', 2)}
+  assert_raise(Redis::ReplyError) {r.lindex('mylist', 2)}
   r.close
 end
 
@@ -1052,7 +1052,7 @@ end
 
 assert("Non-authrozied Redis#zcard") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.zcard("myzset")}
+  assert_raise(Redis::ReplyError) {r.zcard("myzset")}
   r.close
 end
 
@@ -1137,7 +1137,7 @@ end
 
 assert("Non-authrozied Redis#randomkey") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.randomkey}
+  assert_raise(Redis::ReplyError) {r.randomkey}
   r.close
 end
 
@@ -1162,7 +1162,7 @@ end
 
 assert("Non-authrozied Redis#ltrim") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.ltrim "mylist", 1, -1}
+  assert_raise(Redis::ReplyError) {r.ltrim "mylist", 1, -1}
   r.close
 end
 
@@ -1180,7 +1180,7 @@ end
 
 assert("Non-authrozied Redis#publish") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.publish("some_queue", "hello world")}
+  assert_raise(Redis::ReplyError) {r.publish("some_queue", "hello world")}
   r.close
 end
 
@@ -1201,7 +1201,7 @@ end
 
 assert("Non-authrozied Redis#pfadd") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.pfadd("foos")}
+  assert_raise(Redis::ReplyError) {r.pfadd("foos")}
   r.close
 end
 
@@ -1222,7 +1222,7 @@ end
 
 assert("Non-authrozied Redis#pfcount") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.pfcount("foos")}
+  assert_raise(Redis::ReplyError) {r.pfcount("foos")}
   r.close
 end
 
@@ -1249,7 +1249,7 @@ end
 
 assert("Non-authrozied Redis#pfmerge") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.pfmerge "foos", "foo"}
+  assert_raise(Redis::ReplyError) {r.pfmerge "foos", "foo"}
   r.close
 end
 
@@ -1274,7 +1274,7 @@ end
 
 assert("Non-authrozied Redis#multi") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.multi}
+  assert_raise(Redis::ReplyError) {r.multi}
   r.close
 end
 
@@ -1298,7 +1298,7 @@ end
 
 assert("Non-authrozied Redis#exec") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.exec}
+  assert_raise(Redis::ReplyError) {r.exec}
   r.close
 end
 
@@ -1311,7 +1311,7 @@ assert("Redis#discard") do
   client1.set "hoge", "fuga"
   ret1 = client1.discard
   ret2 = client2.get "hoge"
-  assert_raise(Redis::Retryable::RetryError) {client1.discard}
+  assert_raise(Redis::ReplyError) {client1.discard}
 
   assert_equal "OK", ret1
   assert_equal nil, ret2
@@ -1323,7 +1323,7 @@ end
 
 assert("Non-authrozied Redis#discard") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.discard}
+  assert_raise(Redis::ReplyError) {r.discard}
   r.close
 end
 
@@ -1359,7 +1359,7 @@ end
 
 assert("Non-authrozied Redis#watch") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.watch "hoge", "fuga"}
+  assert_raise(Redis::ReplyError) {r.watch "hoge", "fuga"}
   r.close
 end
 
@@ -1387,7 +1387,7 @@ end
 
 assert("Non-authrozied Redis#unwatch") do
   r = Redis::Retryable.new HOST, SECURED_PORT
-  assert_raise(Redis::Retryable::RetryError) {r.unwatch}
+  assert_raise(Redis::ReplyError) {r.unwatch}
   r.close
 end
 
@@ -1398,8 +1398,8 @@ assert("Redis#auth") do
         rescue => e
           e
         end
-  assert_kind_of Redis::Retryable::RetryError, res
-  assert_equal "Redis#ping try 3 times faild. \"NOAUTH Authentication required.\"", res.message
+  assert_kind_of Redis::ReplyError, res
+  assert_equal "NOAUTH Authentication required.", res.message
 
   assert_raise(TypeError) {r.auth nil}
 

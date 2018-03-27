@@ -8,7 +8,13 @@ class Redis
       @timeout = timeout
       @tries = 3
       @sleep = 1 # 1s
+      @pass = nil
       @client = Redis.new(@host, @port, @timeout)
+    end
+
+    def auth(pass)
+      @pass = pass
+      @client.send(:auth, pass)
     end
 
     def exec
@@ -19,9 +25,10 @@ class Redis
       try = 0
       begin
         @client = Redis.new(@host, @port, @timeout) if try > 0
+        @client.send('auth', @pass) if @pass
         @client.send(method, *args)
       rescue => e
-        if e.class == Redis::ConnectionError || e.class == Redis::ReplyError
+        if e.class == Redis::ConnectionError
           if try < @tries
             try += 1
             Sleep::sleep(@sleep)
