@@ -16,7 +16,7 @@ jobs:
     steps:
     - name: Install package
       if: startsWith(matrix.os, 'ubuntu')
-      run: apt install -y redis-server
+      run: sudo apt install -y redis-server
     - name: Run redis server
       run: |
         redis-server --port 6379 &
