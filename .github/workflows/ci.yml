@@ -29,6 +29,8 @@ jobs:
         redis-server --cluster-enabled yes --cluster-config-file 7005-nodes.conf --port 7005 &
     - name: Create redis cluster
       run: |
+        redis-cli --version
+        redis-cli --help
         echo yes | redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
     - uses: actions/checkout@v2
     - name: Download mruby
