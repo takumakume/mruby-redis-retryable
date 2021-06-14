@@ -7,7 +7,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-18.04]
+        os: [ubuntu-20.04]
         mruby_version: [3.0.0, 2.1.2]
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} mruby-${{ matrix.mruby_version }}
