@@ -17,17 +17,15 @@ jobs:
     - name: Install package
       if: startsWith(matrix.os, 'ubuntu')
       run: sudo apt install -y redis-server
-    - name: Run redis server
-      run: |
-        redis-server --port 6379 &
-        redis-server --port 6380 --requirepass 'secret' &
-        redis-server --cluster-enabled yes --cluster-config-file 7000-nodes.conf --port 7000 &
-        redis-server --cluster-enabled yes --cluster-config-file 7001-nodes.conf --port 7001 &
-        redis-server --cluster-enabled yes --cluster-config-file 7002-nodes.conf --port 7002 &
-        redis-server --cluster-enabled yes --cluster-config-file 7003-nodes.conf --port 7003 &
-        redis-server --cluster-enabled yes --cluster-config-file 7004-nodes.conf --port 7004 &
-        redis-server --cluster-enabled yes --cluster-config-file 7005-nodes.conf --port 7005 &
-        echo yes | redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
+    - run: redis-server --port 6379 &
+    - run: redis-server --port 6380 --requirepass 'secret' &
+    - run: redis-server --cluster-enabled yes --cluster-config-file 7000-nodes.conf --port 7000 &
+    - run: redis-server --cluster-enabled yes --cluster-config-file 7001-nodes.conf --port 7001 &
+    - run: redis-server --cluster-enabled yes --cluster-config-file 7002-nodes.conf --port 7002 &
+    - run: redis-server --cluster-enabled yes --cluster-config-file 7003-nodes.conf --port 7003 &
+    - run: redis-server --cluster-enabled yes --cluster-config-file 7004-nodes.conf --port 7004 &
+    - run: redis-server --cluster-enabled yes --cluster-config-file 7005-nodes.conf --port 7005 &
+    - run: echo yes | redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005
     - uses: actions/checkout@v2
     - name: Download mruby
       run: git clone --depth 1 -b $MRUBY_VERSION "https://github.com/mruby/mruby.git" mruby
